@@ -1,0 +1,60 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended"
+  ],
+  "timezone": "Europe/London",
+  "updateLockFiles": true,
+  "packageRules": [
+    {
+      "groupName": "`poetry` <dev> dependencies (non-major)",
+      "matchDepTypes": [
+        "dev"
+      ],
+      "matchUpdateTypes": [
+        "patch",
+        "minor"
+      ]
+    },
+    {
+      "groupName": "`poetry` <docs> dependencies (non-major)",
+      "matchDepTypes": [
+        "docs"
+      ],
+      "matchUpdateTypes": [
+        "patch",
+        "minor"
+      ]
+    },
+    {
+      "groupName": "Terraform dependencies",
+      "matchManagers": [
+        "terraform"
+      ]
+    },
+    {
+      "groupName": "GitHub Actions dependencies",
+      "matchManagers": [
+        "github-actions"
+      ]
+    },
+    {
+      "groupName": "pre-commit dependencies",
+      "matchManagers": [
+        "pre-commit"
+      ]
+    },
+    {
+      "groupName": "git-submodules",
+      "matchManagers": [
+        "git-submodules"
+      ]
+    }
+  ],
+  "pre-commit": {
+    "enabled": true
+  },
+  "git-submodules": {
+    "enabled": true
+  }
+}
