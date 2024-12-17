@@ -4,5 +4,27 @@
     "config:recommended"
   ],
   "timezone": "Europe/London",
-  "updateLockFiles": true
+  "updateLockFiles": true,
+  "packageRules": [
+    {
+      "groupName": "`poetry` <dev> dependencies (non-major)",
+      "matchDepTypes": [
+        "dev"
+      ],
+      "matchUpdateTypes": [
+        "patch",
+        "minor"
+      ]
+    },
+    {
+      "groupName": "`poetry` <docs> dependencies (non-major)",
+      "matchDepTypes": [
+        "docs"
+      ],
+      "matchUpdateTypes": [
+        "patch",
+        "minor"
+      ]
+    }
+  ]
 }
