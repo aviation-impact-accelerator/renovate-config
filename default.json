@@ -3,5 +3,6 @@
   "extends": [
     "config:recommended"
   ],
-  "timezone": "Europe/London"
+  "timezone": "Europe/London",
+  "updateLockFiles": true
 }
