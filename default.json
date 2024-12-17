@@ -25,6 +25,12 @@
         "patch",
         "minor"
       ]
+    },
+    {
+      "groupName": "Terraform dependencies",
+      "matchManagers": [
+        "terraform"
+      ]
     }
   ]
 }
