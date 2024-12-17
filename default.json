@@ -37,6 +37,15 @@
       "matchManagers": [
         "github-actions"
       ]
+    },
+    {
+      "groupName": "pre-commit dependencies",
+      "matchManagers": [
+        "pre-commit"
+      ]
     }
-  ]
+  ],
+  "pre-commit": {
+    "enabled": true
+  }
 }
