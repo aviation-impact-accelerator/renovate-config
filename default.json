@@ -47,5 +47,8 @@
   ],
   "pre-commit": {
     "enabled": true
+  },
+  "git-submodules": {
+    "enabled": true
   }
 }
