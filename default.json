@@ -43,6 +43,12 @@
       "matchManagers": [
         "pre-commit"
       ]
+    },
+    {
+      "groupName": "git-submodules",
+      "matchManagers": [
+        "git-submodules"
+      ]
     }
   ],
   "pre-commit": {
