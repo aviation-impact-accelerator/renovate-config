@@ -4,10 +4,10 @@
       "groupName": "Ruff dependencies",
       "groupSlug": "ruff-deps",
       "matchPackageNames": [
-        "^.*ruff.*$"
+        "/.*ruff.*/"
       ],
       "matchSourceUrls": [
-        "https://github.com/astral-sh/.*"
+        "/https://github.com/astral-sh/.*/"
       ]
     }
   ]
