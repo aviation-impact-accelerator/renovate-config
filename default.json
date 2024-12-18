@@ -8,6 +8,7 @@
   "packageRules": [
     {
       "groupName": "`poetry` <dev> dependencies (non-major)",
+      "groupSlug": "poetry-dev-deps-nonmajor",
       "matchDepTypes": [
         "dev"
       ],
@@ -18,6 +19,7 @@
     },
     {
       "groupName": "`poetry` <docs> dependencies (non-major)",
+      "groupSlug": "poetry-docs-deps-nonmajor",
       "matchDepTypes": [
         "docs"
       ],
@@ -28,18 +30,21 @@
     },
     {
       "groupName": "Terraform dependencies",
+      "groupSlug": "terraform-deps",
       "matchManagers": [
         "terraform"
       ]
     },
     {
       "groupName": "GitHub Actions dependencies",
+      "groupSlug": "gha-deps",
       "matchManagers": [
         "github-actions"
       ]
     },
     {
       "groupName": "pre-commit dependencies",
+      "groupSlug": "pre-commit-deps",
       "matchManagers": [
         "pre-commit"
       ],
