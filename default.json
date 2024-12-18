@@ -42,7 +42,8 @@
       "groupName": "pre-commit dependencies",
       "matchManagers": [
         "pre-commit"
-      ]
+      ],
+      "separateMajorMinor": false
     },
     {
       "groupName": "git-submodules",
