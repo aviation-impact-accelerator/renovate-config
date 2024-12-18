@@ -1,0 +1,11 @@
+{
+  "packageRules": [
+    {
+      "groupName": "Ruff dependencies",
+      "groupSlug": "ruff-deps",
+      "matchPackageNames": [
+        "ruff"
+      ]
+    }
+  ]
+}
