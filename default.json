@@ -3,7 +3,7 @@
   "extends": [
     "config:recommended",
     "schedule:earlyMondays",
-    "groupRuff"
+    "local>aviation-impact-accelerator/renovate-config:groupRuff"
   ],
   "timezone": "Europe/London",
   "updateLockFiles": true,
