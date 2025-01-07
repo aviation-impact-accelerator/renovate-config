@@ -1,0 +1,10 @@
+{
+  "packageRules": [
+    {
+      "matchPackageNames": [
+        "*"
+      ],
+      "automerge": true
+    }
+  ]
+}

@@ -5,6 +5,9 @@
     "schedule:earlyMondays",
     "local>aviation-impact-accelerator/renovate-config:groupRuff"
   ],
+  "reviewers": [
+    "aia-software"
+  ],
   "timezone": "Europe/London",
   "updateLockFiles": true,
   "packageRules": [
@@ -17,7 +20,8 @@
       "matchUpdateTypes": [
         "patch",
         "minor"
-      ]
+      ],
+      "automerge": true
     },
     {
       "groupName": "`poetry` <docs> dependencies (non-major)",
@@ -28,21 +32,24 @@
       "matchUpdateTypes": [
         "patch",
         "minor"
-      ]
+      ],
+      "automerge": true
     },
     {
       "groupName": "Terraform dependencies",
       "groupSlug": "terraform-deps",
       "matchManagers": [
         "terraform"
-      ]
+      ],
+      "automerge": true
     },
     {
       "groupName": "GitHub Actions dependencies",
       "groupSlug": "gha-deps",
       "matchManagers": [
         "github-actions"
-      ]
+      ],
+      "automerge": true
     },
     {
       "groupName": "pre-commit dependencies",
@@ -50,13 +57,15 @@
       "matchManagers": [
         "pre-commit"
       ],
-      "separateMajorMinor": false
+      "separateMajorMinor": false,
+      "automerge": true
     },
     {
       "groupName": "git-submodules",
       "matchManagers": [
         "git-submodules"
-      ]
+      ],
+      "automerge": true
     }
   ],
   "pre-commit": {
