@@ -35,3 +35,18 @@ Ruff versions are defined in the `pyproject.toml` and `.pre-commit-config.yaml`.
 ```
 
 Group rules are applied in sequence and if a package matches a later group, it is removed from the earlier group. In order to ensure that ruff updates are always grouped together, extend the config with `groupRuff` at the bottom of the `extends` list.
+
+### Disable automerge
+
+Automerge is enabled by default for certain dependency groups in `default.json`. To disable this feature for a repository, add this to the config:
+
+```json
+{
+  "extends": [
+    // ... other presets ...
+    "local>aviation-impact-accelerator/renovate-config:disableAutomerge.json"
+  ]
+}
+```
+
+Make sure this is added after extending the default config to ensure this overrides the default.
