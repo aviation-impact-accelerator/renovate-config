@@ -5,6 +5,9 @@
     "schedule:earlyMondays",
     "local>aviation-impact-accelerator/renovate-config:groupRuff"
   ],
+  "reviewers": [
+    "aia-software"
+  ],
   "timezone": "Europe/London",
   "updateLockFiles": true,
   "packageRules": [
