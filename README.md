@@ -10,6 +10,13 @@ This configuration includes:
 
 - The [dependency dashboard issue](https://docs.renovatebot.com/presets-default/#dependencydashboard) as a preset.
 - Update lockfiles when dependencies are updated.
+- Request review from the `aia-software` team on CI failure during the update.
+- [Default group presets](#default-group-presets).
+- Scheduled updates between 0300-0400 every Monday London time.
+
+### Default group presets
+
+Grouped updates reduce the noise renovate generates in repositories so it can be helpful to reduce the burden on maintainers. Some presets are included in the default configuration and if you are not using the default, you can extend your config with your own collection of presets.
 
 ### Group GitHub Actions updates
 
@@ -76,7 +83,7 @@ Ruff versions are defined in the `pyproject.toml` and `.pre-commit-config.yaml`.
 }
 ```
 
-Group rules are applied in sequence and if a package matches a later group, it is removed from the earlier group. In order to ensure that ruff updates are always grouped together, extend the config with `groupRuff` at the bottom of the `extends` list.
+Group rules are applied in sequence and if a package matches a later group, it is removed from the earlier group. In order to ensure that ruff updates are always grouped together, extend the config with `groupRuff` at the bottom of the `extends` list. `groupRuff` overlaps with ruff updates in `groupPoetry` and `groupPreCommit` so if you wish for ruff updates to be grouped together, ensure that the `groupRuff` is defined belo `groupPoetry` and `groupPreCommit` to override those grouping rules.
 
 ### Group Terraform dependencies
 
