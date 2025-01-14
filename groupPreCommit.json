@@ -1,0 +1,16 @@
+{
+  "packageRules": [
+    {
+      "groupName": "pre-commit dependencies",
+      "groupSlug": "pre-commit-deps",
+      "matchManagers": [
+        "pre-commit"
+      ],
+      "separateMajorMinor": false,
+      "automerge": true
+    }
+  ],
+  "pre-commit": {
+    "enabled": true
+  }
+}

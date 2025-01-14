@@ -1,0 +1,14 @@
+{
+  "packageRules": [
+    {
+      "groupName": "git-submodules",
+      "matchManagers": [
+        "git-submodules"
+      ],
+      "automerge": true
+    }
+  ],
+  "git-submodules": {
+    "enabled": true
+  }
+}

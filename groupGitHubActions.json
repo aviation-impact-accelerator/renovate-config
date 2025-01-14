@@ -1,0 +1,12 @@
+{
+  "packageRules": [
+    {
+      "groupName": "GitHub Actions dependencies",
+      "groupSlug": "gha-deps",
+      "matchManagers": [
+        "github-actions"
+      ],
+      "automerge": true
+    }
+  ]
+}
