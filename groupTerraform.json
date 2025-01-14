@@ -1,0 +1,12 @@
+{
+  "packageRules": [
+    {
+      "groupName": "Terraform dependencies",
+      "groupSlug": "terraform-deps",
+      "matchManagers": [
+        "terraform"
+      ],
+      "automerge": true
+    }
+  ]
+}
