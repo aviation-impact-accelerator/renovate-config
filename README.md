@@ -10,16 +10,6 @@ This configuration includes:
 
 - The [dependency dashboard issue](https://docs.renovatebot.com/presets-default/#dependencydashboard) as a preset.
 - Update lockfiles when dependencies are updated.
-- Group all minor and patch updates in each Poetry dependency group (dev and docs).
-- Group terraform dependencies.
-- Group GitHub Actions (GHA) dependencies.
-- Enables pre-commit dependency updates (currently in beta testing) and groups pre-commit dependencies.
-- Enables git-submodule pointer updates (currently in beta testing) and groups submodule updates.
-
-## Other presets
-
-This repository also contains other presets which you may want to additionally extend from in
-order to better align with how each repository uses renovatebot.
 
 ### Group GitHub Actions updates
 
@@ -100,6 +90,11 @@ Terraform package versions can be updated together by extending the config:
   ]
 }
 ```
+
+## Other presets
+
+This repository also contains other presets which you may want to additionally extend from in
+order to better align with how each repository uses renovatebot.
 
 ### Disable automerge
 
