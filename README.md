@@ -21,6 +21,19 @@ This configuration includes:
 This repository also contains other presets which you may want to additionally extend from in
 order to better align with how each repository uses renovatebot.
 
+### Group GitHub Actions updates
+
+Packages and runner versions used in GitHub Actions workflows can be updated together. Major version updates still constitute an individual PR. Extend your config with:
+
+```json
+{
+  "extends": [
+    // ... other presets ...
+    "local>aviation-impact-accelerator/renovate-config:groupGitHubActions"
+  ]
+}
+```
+
 ### Group Poetry updates by dependency group
 
 Poetry dependencies in the aviation-impact-accelerator organization are grouped into `dev` and `docs` dependency groups. This will only group patch and minor versions together so major package versions (with breaking changes) can be handled with individually. Extend your config with:
