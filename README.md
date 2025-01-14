@@ -34,6 +34,19 @@ Packages and runner versions used in GitHub Actions workflows can be updated tog
 }
 ```
 
+### Group Git Submodule updates
+
+Automatic git submodule updates can be grouped together. This feature is currently in beta testing, so it needs to be [enabled](https://docs.renovatebot.com/modules/manager/git-submodules/#enabling) to opt-in. Extend your config with:
+
+```json
+{
+  "extends": [
+    // ... other presets ...
+    "local>aviation-impact-accelerator/renovate-config:groupGitSubmodules"
+  ]
+}
+```
+
 ### Group Poetry updates by dependency group
 
 Poetry dependencies in the aviation-impact-accelerator organization are grouped into `dev` and `docs` dependency groups. This will only group patch and minor versions together so major package versions (with breaking changes) can be handled with individually. Extend your config with:
