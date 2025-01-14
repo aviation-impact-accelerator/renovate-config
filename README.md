@@ -47,6 +47,19 @@ Poetry dependencies in the aviation-impact-accelerator organization are grouped 
 }
 ```
 
+### Group pre-commit hook updates
+
+pre-commit hooks can be grouped together. This feature is currently in beta testing, so it needs to be [enabled](https://docs.renovatebot.com/modules/manager/pre-commit/#enabling) to opt-in. Pre-commit hooks typically have an automatic fix option so it is safe to group all version updates together - both major and minor. Extend your config with:
+
+```json
+{
+  "extends": [
+    // ... other presets ...
+    "local>aviation-impact-accelerator/renovate-config:groupPreCommit"
+  ]
+}
+```
+
 ### Group Ruff updates
 
 Ruff versions are defined in the `pyproject.toml` and `.pre-commit-config.yaml`. To keep them in sync, renovate can group the ruff updates to a single PR. You can opt-in to this by extending the config:
