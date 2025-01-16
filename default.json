@@ -13,6 +13,9 @@
   "reviewers": [
     "aia-software"
   ],
+  "labels": [
+    "chore"
+  ],
   "timezone": "Europe/London",
   "updateLockFiles": true
 }
