@@ -13,6 +13,7 @@ This configuration includes:
 - Request review from the `aia-software` team on CI failure during the update.
 - [Default group presets](#default-group-presets).
 - Scheduled updates between 0300-0400 every Monday London time.
+- Enable copier template updates.
 
 ### Default group presets
 
