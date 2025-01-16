@@ -1,0 +1,18 @@
+{
+  "packageRules": [
+    {
+      "groupName": "template updates",
+      "groupSlug": "copier-update",
+      "labels": [
+        "template"
+      ],
+      "matchManagers": [
+        "copier"
+      ],
+      "overrideDepName": "{{replace '.git' '' (replace 'https://github.com/aviation-impact-accelerator/' '' depName)}}",
+      "suppressNotifications": [
+        "artifactErrors"
+      ]
+    }
+  ]
+}

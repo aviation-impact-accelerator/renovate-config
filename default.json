@@ -3,6 +3,7 @@
   "extends": [
     "config:recommended",
     "schedule:earlyMondays",
+    "local>aviation-impact-accelerator/renovate-config:copierTemplateUpdate",
     "local>aviation-impact-accelerator/renovate-config:groupGitHubActions",
     "local>aviation-impact-accelerator/renovate-config:groupGitSubmodules",
     "local>aviation-impact-accelerator/renovate-config:groupPoetry",
