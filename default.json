@@ -2,7 +2,7 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended",
-    "schedule:earlyMondays",
+    "schedule:daily",
     "local>aviation-impact-accelerator/renovate-config:copierTemplateUpdate",
     "local>aviation-impact-accelerator/renovate-config:groupGitHubActions",
     "local>aviation-impact-accelerator/renovate-config:groupGitSubmodules",
