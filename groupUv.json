@@ -1,0 +1,28 @@
+{
+  "packageRules": [
+    {
+      "groupName": "`uv` <dev> dependencies (non-major)",
+      "groupSlug": "uv-dev-deps-nonmajor",
+      "matchDepTypes": [
+        "dev"
+      ],
+      "matchUpdateTypes": [
+        "patch",
+        "minor"
+      ],
+      "automerge": true
+    },
+    {
+      "groupName": "`uv` <docs> dependencies (non-major)",
+      "groupSlug": "uv-docs-deps-nonmajor",
+      "matchDepTypes": [
+        "docs"
+      ],
+      "matchUpdateTypes": [
+        "patch",
+        "minor"
+      ],
+      "automerge": true
+    }
+  ]
+}
