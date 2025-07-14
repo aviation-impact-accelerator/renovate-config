@@ -6,7 +6,7 @@
     "local>aviation-impact-accelerator/renovate-config:copierTemplateUpdate",
     "local>aviation-impact-accelerator/renovate-config:groupGitHubActions",
     "local>aviation-impact-accelerator/renovate-config:groupGitSubmodules",
-    "local>aviation-impact-accelerator/renovate-config:groupPoetry",
+    "local>aviation-impact-accelerator/renovate-config:groupUv",
     "local>aviation-impact-accelerator/renovate-config:groupPreCommit",
     "local>aviation-impact-accelerator/renovate-config:groupTerraform",
     "local>aviation-impact-accelerator/renovate-config:groupRuff"
