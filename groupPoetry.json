@@ -11,18 +11,6 @@
         "minor"
       ],
       "automerge": true
-    },
-    {
-      "groupName": "`poetry` <docs> dependencies (non-major)",
-      "groupSlug": "poetry-docs-deps-nonmajor",
-      "matchDepTypes": [
-        "docs"
-      ],
-      "matchUpdateTypes": [
-        "patch",
-        "minor"
-      ],
-      "automerge": true
     }
   ]
 }
