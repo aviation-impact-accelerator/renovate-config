@@ -23,6 +23,18 @@
         "minor"
       ],
       "automerge": true
+    },
+    {
+      "groupName": "uv dependencies",
+      "groupSlug": "uv-deps",
+      "matchPackageNames": [
+        "/.*uv.*/"
+      ],
+      "matchSourceUrls": [
+        "/https://github.com/astral-sh/.*/"
+      ],
+      "automerge": true,
+      "separateMajorMinor": false
     }
   ],
   "regexManagers": [
