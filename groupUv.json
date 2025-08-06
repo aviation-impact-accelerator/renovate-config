@@ -24,5 +24,17 @@
       ],
       "automerge": true
     }
+  ],
+  "regexManagers": [
+    {
+      "fileMatch": [
+        "^pyproject\\.toml$"
+      ],
+      "matchStrings": [
+        "^requires\\s*=\\s*\\[.*?['\"](?<depName>uv_build)(?<currentValue>@?[^'\"]*)['\"].*?\\]"
+      ],
+      "datasourceTemplate": "pypi",
+      "versioningTemplate": "pep440"
+    }
   ]
 }
