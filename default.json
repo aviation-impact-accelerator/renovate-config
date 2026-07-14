@@ -11,7 +11,9 @@
     "local>aviation-impact-accelerator/renovate-config:groupTerraform",
     "local>aviation-impact-accelerator/renovate-config:groupRuff"
   ],
-  "labels": ["chore"],
+  "labels": [
+    "chore"
+  ],
   "timezone": "Europe/London",
   "updateLockFiles": true
 }
