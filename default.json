@@ -2,7 +2,6 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended",
-    "schedule:before 6am on the 2nd and 4th day instance on Monday",
     "local>aviation-impact-accelerator/renovate-config:copierTemplateUpdate",
     "local>aviation-impact-accelerator/renovate-config:groupGitHubActions",
     "local>aviation-impact-accelerator/renovate-config:groupGitSubmodules",
@@ -10,6 +9,9 @@
     "local>aviation-impact-accelerator/renovate-config:groupPreCommit",
     "local>aviation-impact-accelerator/renovate-config:groupTerraform",
     "local>aviation-impact-accelerator/renovate-config:groupRuff"
+  ],
+  "schedule": [
+    "before 6am on the 2nd and 4th day instance on monday"
   ],
   "labels": [
     "chore"
