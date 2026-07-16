@@ -11,7 +11,8 @@
     "local>aviation-impact-accelerator/renovate-config:groupRuff"
   ],
   "schedule": [
-    "before 6am on the 2nd and 4th day instance on monday"
+    "* 0-5 8-14 * 1",
+    "* 0-5 22-28 * 1"
   ],
   "labels": [
     "chore"
