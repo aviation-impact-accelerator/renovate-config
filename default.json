@@ -10,6 +10,17 @@
     "local>aviation-impact-accelerator/renovate-config:groupTerraform",
     "local>aviation-impact-accelerator/renovate-config:groupRuff"
   ],
+  "github-actions": {
+    "managerFilePatterns": [
+      "/(^|/)(workflow-templates|\\.(?:github|gitea|forgejo)/(?:workflows|actions))/.+\\.ya?ml\\.jinja$/",
+      "/(^|/)action\\.ya?ml\\.jinja$/"
+    ]
+  },
+  "pep621": {
+    "managerFilePatterns": [
+      "/(^|/)pyproject\\.toml\\.jinja$/"
+    ]
+  },
   "schedule": [
     "* 0-5 8-14 * 1",
     "* 0-5 22-28 * 1"
