@@ -22,8 +22,7 @@
     ]
   },
   "schedule": [
-    "* 0-5 8-14 * 1",
-    "* 0-5 22-28 * 1"
+    "at any time"
   ],
   "labels": [
     "chore"
