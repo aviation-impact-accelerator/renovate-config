@@ -13,7 +13,8 @@
   "github-actions": {
     "managerFilePatterns": [
       "/(^|/)(workflow-templates|\\.(?:github|gitea|forgejo)/(?:workflows|actions))/.+\\.ya?ml\\.jinja$/",
-      "/(^|/)action\\.ya?ml\\.jinja$/"
+      "/(^|/)action\\.ya?ml\\.jinja$/",
+      "/(^|/)\\.github/workflows/\\{%-?\\s*if\\s+[^%]+\\s*-?%\\}[^/]+\\.ya?ml\\{%-?\\s*endif\\s*-?%\\}$/"
     ]
   },
   "pep621": {
