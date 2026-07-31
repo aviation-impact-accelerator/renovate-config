@@ -10,6 +10,7 @@
         "copier"
       ],
       "overrideDepName": "{{replace '.git' '' (replace 'https://github.com/aviation-impact-accelerator/' '' depName)}}",
+      "skipArtifactsUpdate": true,
       "suppressNotifications": [
         "artifactErrors"
       ]
