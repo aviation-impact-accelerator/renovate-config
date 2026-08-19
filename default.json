@@ -10,37 +10,67 @@
     "local>aviation-impact-accelerator/renovate-config:groupTerraform",
     "local>aviation-impact-accelerator/renovate-config:groupRuff"
   ],
-  "github-actions": {
-    "managerFilePatterns": [
-      "/(^|/)(workflow-templates|\\.(?:github|gitea|forgejo)/(?:workflows|actions))/.+\\.ya?ml\\.jinja$/",
-      "/(^|/)action\\.ya?ml\\.jinja$/",
-      "/(^|/)\\.github/workflows/\\{%-?\\s*if\\s+[^%]+\\s*-?%\\}[^/]+\\.ya?ml\\{%-?\\s*endif\\s*-?%\\}(?:\\.jinja)?$/"
-    ]
-  },
-  "pep621": {
-    "managerFilePatterns": [
-      "/(^|/)pyproject\\.toml\\.jinja$/"
-    ]
-  },
   "customManagers": [
     {
       "customType": "regex",
-      "description": "Update GitHub Actions in conditional Copier workflow templates",
+      "description": "Update Python dependencies in Copier pyproject templates",
       "managerFilePatterns": [
+        "/(^|/)pyproject\\.toml\\.jinja$/"
+      ],
+      "matchStrings": [
+        "\\\"(?<depName>[A-Za-z0-9][A-Za-z0-9_.-]*)(?:\\[[^\\\"\\]]+\\])?(?<currentValue>(?:(?:~=|==|!=|<=|>=|<|>)\\s*[^\\\"\\s,]+)(?:\\s*,\\s*(?:~=|==|!=|<=|>=|<|>)\\s*[^\\\"\\s,]+)*)\\\""
+      ],
+      "datasourceTemplate": "pypi",
+      "versioningTemplate": "pep440",
+      "depTypeTemplate": "python-template"
+    },
+    {
+      "customType": "regex",
+      "description": "Update pre-commit repositories in Copier prek templates",
+      "managerFilePatterns": [
+        "/(^|/)prek\\.toml\\.jinja$/"
+      ],
+      "matchStrings": [
+        "repo\\s*=\\s*\\\"https://github\\.com/(?<depName>[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+?)(?:\\.git)?\\\"\\s*rev\\s*=\\s*\\\"(?<currentValue>[^\\\"]+)\\\""
+      ],
+      "datasourceTemplate": "github-tags",
+      "versioningTemplate": "semver-coerced",
+      "depTypeTemplate": "pre-commit"
+    },
+    {
+      "customType": "regex",
+      "description": "Update GitHub Actions in Copier workflow templates",
+      "managerFilePatterns": [
+        "/(^|/)(workflow-templates|\\.(?:github|gitea|forgejo)/(?:workflows|actions))/.+\\.ya?ml\\.jinja$/",
+        "/(^|/)action\\.ya?ml\\.jinja$/",
         "/(^|/)\\.github/workflows/\\{%-?\\s*if\\s+[^%]+\\s*-?%\\}[^/]+\\.ya?ml\\{%-?\\s*endif\\s*-?%\\}(?:\\.jinja)?$/"
       ],
       "matchStrings": [
-        "uses:\\s*(?<depName>[A-Za-z0-9_.-]+/[A-Za-z0-9_./-]+)@(?<currentValue>v?\\d+(?:\\.\\d+){0,2})",
-        "uses:\\s*(?<depName>[A-Za-z0-9_.-]+/[A-Za-z0-9_./-]+)@(?<currentDigest>[a-f0-9]{40})\\s+#\\s*(?<currentValue>v?\\d+(?:\\.\\d+){0,2})"
+        "uses:\\s*(?<depName>[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+)(?:/[A-Za-z0-9_./-]+)?@(?<currentValue>v?\\d+(?:\\.\\d+){0,2})(?:\\s|$)",
+        "uses:\\s*(?<depName>[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+)(?:/[A-Za-z0-9_./-]+)?@(?<currentDigest>[a-f0-9]{40})\\s*#\\s*(?<currentValue>v?\\d+(?:\\.\\d+){0,2})"
       ],
       "datasourceTemplate": "github-tags",
       "versioningTemplate": "github-actions",
       "depTypeTemplate": "action"
+    },
+    {
+      "customType": "regex",
+      "description": "Update container images in Copier workflow templates",
+      "managerFilePatterns": [
+        "/(^|/)(workflow-templates|\\.(?:github|gitea|forgejo)/(?:workflows|actions))/.+\\.ya?ml\\.jinja$/",
+        "/(^|/)action\\.ya?ml\\.jinja$/"
+      ],
+      "matchStrings": [
+        "image:\\s*(?<depName>[A-Za-z0-9.-]+/[A-Za-z0-9_./-]+):(?<currentValue>[A-Za-z0-9._-]+)"
+      ],
+      "datasourceTemplate": "docker",
+      "versioningTemplate": "docker",
+      "depTypeTemplate": "container-image"
     }
   ],
   "packageRules": [
     {
-      "description": "Group GitHub Actions found in conditional Copier templates",
+      "description": "Group GitHub Actions found in Copier templates",
       "matchManagers": [
         "custom.regex"
       ],
@@ -53,6 +83,20 @@
       "groupName": "GitHub Actions dependencies",
       "groupSlug": "gha-deps",
       "automerge": true
+    },
+    {
+      "description": "Group pre-commit dependencies found in Copier templates",
+      "matchManagers": [
+        "custom.regex"
+      ],
+      "matchDatasources": [
+        "github-tags"
+      ],
+      "matchDepTypes": [
+        "pre-commit"
+      ],
+      "groupName": "pre-commit dependencies",
+      "groupSlug": "pre-commit"
     }
   ],
   "schedule": [
