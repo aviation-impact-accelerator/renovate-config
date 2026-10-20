@@ -1,10 +1,15 @@
 {
   "packageRules": [
     {
+      "description": "PEP 735 [dependency-groups] put the group name in managerData.depGroup, which only matchJsonata can see. The legacy [tool.uv.dev-dependencies] table has no group name.",
       "groupName": "`uv` <dev> dependencies (non-major)",
       "groupSlug": "uv-dev-deps-nonmajor",
       "matchDepTypes": [
-        "dev"
+        "dependency-groups",
+        "tool.uv.dev-dependencies"
+      ],
+      "matchJsonata": [
+        "managerData.depGroup = 'dev' or depType = 'tool.uv.dev-dependencies'"
       ],
       "matchUpdateTypes": [
         "patch",
@@ -16,7 +21,10 @@
       "groupName": "`uv` <docs> dependencies (non-major)",
       "groupSlug": "uv-docs-deps-nonmajor",
       "matchDepTypes": [
-        "docs"
+        "dependency-groups"
+      ],
+      "matchJsonata": [
+        "managerData.depGroup = 'docs'"
       ],
       "matchUpdateTypes": [
         "patch",
@@ -35,18 +43,6 @@
       ],
       "automerge": true,
       "separateMajorMinor": false
-    }
-  ],
-  "regexManagers": [
-    {
-      "fileMatch": [
-        "^pyproject\\.toml$"
-      ],
-      "matchStrings": [
-        "^requires\\s*=\\s*\\[.*?['\"](?<depName>uv_build)(?<currentValue>@?[^'\"]*)['\"].*?\\]"
-      ],
-      "datasourceTemplate": "pypi",
-      "versioningTemplate": "pep440"
     }
   ]
 }

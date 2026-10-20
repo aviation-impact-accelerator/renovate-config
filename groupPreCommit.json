@@ -8,6 +8,22 @@
       ],
       "separateMajorMinor": false,
       "automerge": true
+    },
+    {
+      "description": "Group pre-commit dependencies found in prek configs and Copier templates",
+      "matchManagers": [
+        "custom.regex"
+      ],
+      "matchDatasources": [
+        "github-tags"
+      ],
+      "matchDepTypes": [
+        "pre-commit"
+      ],
+      "groupName": "pre-commit dependencies",
+      "groupSlug": "pre-commit-deps",
+      "separateMajorMinor": false,
+      "automerge": true
     }
   ],
   "pre-commit": {
