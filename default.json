@@ -68,13 +68,24 @@
       "depTypeTemplate": "container-image"
     }
   ],
+  "packageRules": [
+    {
+      "description": "Only automerge non-major updates. Defined here so it applies after, and overrides, the presets in extends",
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "automerge": false
+    }
+  ],
   "schedule": [
-    "at any time"
+    "* 3 * * 1"
   ],
   "prHourlyLimit": 0,
   "labels": [
     "chore"
   ],
-  "timezone": "Europe/London",
-  "updateLockFiles": true
+  "reviewers": [
+    "team:aia-software"
+  ],
+  "timezone": "Europe/London"
 }
