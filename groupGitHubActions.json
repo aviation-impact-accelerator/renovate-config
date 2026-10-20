@@ -7,6 +7,21 @@
         "github-actions"
       ],
       "automerge": true
+    },
+    {
+      "description": "Group GitHub Actions found in Copier templates",
+      "matchManagers": [
+        "custom.regex"
+      ],
+      "matchDatasources": [
+        "github-tags"
+      ],
+      "matchDepTypes": [
+        "action"
+      ],
+      "groupName": "GitHub Actions dependencies",
+      "groupSlug": "gha-deps",
+      "automerge": true
     }
   ]
 }

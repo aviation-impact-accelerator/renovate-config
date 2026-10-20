@@ -5,9 +5,9 @@
     "local>aviation-impact-accelerator/renovate-config:copierTemplateUpdate",
     "local>aviation-impact-accelerator/renovate-config:groupGitHubActions",
     "local>aviation-impact-accelerator/renovate-config:groupGitSubmodules",
-    "local>aviation-impact-accelerator/renovate-config:groupUv",
     "local>aviation-impact-accelerator/renovate-config:groupPreCommit",
     "local>aviation-impact-accelerator/renovate-config:groupTerraform",
+    "local>aviation-impact-accelerator/renovate-config:groupUv",
     "local>aviation-impact-accelerator/renovate-config:groupRuff"
   ],
   "customManagers": [
@@ -26,9 +26,9 @@
     },
     {
       "customType": "regex",
-      "description": "Update pre-commit repositories in Copier prek templates",
+      "description": "Update pre-commit repositories in prek configs and Copier prek templates",
       "managerFilePatterns": [
-        "/(^|/)prek\\.toml\\.jinja$/"
+        "/(^|/)prek\\.toml(\\.jinja)?$/"
       ],
       "matchStrings": [
         "repo\\s*=\\s*\\\"https://github\\.com/(?<depName>[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+?)(?:\\.git)?\\\"\\s*rev\\s*=\\s*\\\"(?<currentValue>[^\\\"]+)\\\""
@@ -66,37 +66,6 @@
       "datasourceTemplate": "docker",
       "versioningTemplate": "docker",
       "depTypeTemplate": "container-image"
-    }
-  ],
-  "packageRules": [
-    {
-      "description": "Group GitHub Actions found in Copier templates",
-      "matchManagers": [
-        "custom.regex"
-      ],
-      "matchDatasources": [
-        "github-tags"
-      ],
-      "matchDepTypes": [
-        "action"
-      ],
-      "groupName": "GitHub Actions dependencies",
-      "groupSlug": "gha-deps",
-      "automerge": true
-    },
-    {
-      "description": "Group pre-commit dependencies found in Copier templates",
-      "matchManagers": [
-        "custom.regex"
-      ],
-      "matchDatasources": [
-        "github-tags"
-      ],
-      "matchDepTypes": [
-        "pre-commit"
-      ],
-      "groupName": "pre-commit dependencies",
-      "groupSlug": "pre-commit"
     }
   ],
   "schedule": [
