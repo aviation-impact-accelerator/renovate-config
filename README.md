@@ -92,7 +92,7 @@ pre-commit hooks can be grouped together. The pre-commit manager is disabled by 
 
 ### Group Ruff updates
 
-Ruff versions are defined in the `pyproject.toml` and in `.pre-commit-config.yaml` or `prek.toml`. To keep them in sync, renovate can group the ruff updates to a single PR. You can opt-in to this by extending the config:
+Ruff versions are defined in the `pyproject.toml` and in `.pre-commit-config.yaml` or `prek.toml`. To keep them in sync, renovate can group the ruff updates to a single PR. The preset also sets `rangeStrategy` to `bump`, so a lower bound such as `ruff>=0.15.12` is raised to the new version alongside the hook `rev`. Without it, Renovate leaves a range that the new version already satisfies untouched, so only the hook `rev` and `uv.lock` are updated. You can opt-in to this by extending the config:
 
 ```json
 {
