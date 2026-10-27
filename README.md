@@ -60,7 +60,21 @@ Both are updated in the same PR. A new Python minor version (e.g. `3.14` to `3.1
 
 Matrix lists such as `python-version: ["3.14", "3.15"]` are left alone, because they list the versions a project supports. `requires-python` is also never updated: it sets the oldest Python a project supports, which is a decision for people, not Renovate.
 
-When you change `requires-python`, check any tool settings that copy it. Ruff reads `requires-python` when `target-version` isn't set, so leave `target-version` out.
+Because `.python-version` can be newer than `requires-python`, set the Python version for each development tool explicitly in `pyproject.toml`, to the `requires-python` floor. Otherwise some tools take the version from the interpreter instead. Update these settings by hand when you change `requires-python`:
+
+```toml
+[tool.ruff]
+target-version = "py314"
+
+[tool.pyrefly]
+python-version = "3.14"
+
+[tool.ty.environment]
+python-version = "3.14"
+
+[tool.mypy]
+python_version = "3.14"
+```
 
 ### Lock file maintenance
 
