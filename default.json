@@ -70,6 +70,24 @@
   ],
   "packageRules": [
     {
+      "description": "Raise the floor of Python tooling and build dependencies to the new version, and refresh uv.lock",
+      "matchDepTypes": [
+        "build-system.requires",
+        "dependency-groups",
+        "python-template",
+        "tool.uv.dev-dependencies"
+      ],
+      "rangeStrategy": "bump"
+    },
+    {
+      "description": "Leave the floor of runtime dependencies alone so libraries don't narrow what downstream users can install. Only uv.lock is refreshed. Extend bumpRuntimeDeps to raise them",
+      "matchDepTypes": [
+        "project.dependencies",
+        "project.optional-dependencies"
+      ],
+      "rangeStrategy": "update-lockfile"
+    },
+    {
       "description": "Only automerge non-major updates. Defined here so it applies after, and overrides, the presets in extends",
       "matchUpdateTypes": [
         "major"

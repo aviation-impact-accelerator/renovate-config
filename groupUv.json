@@ -1,38 +1,6 @@
 {
   "packageRules": [
     {
-      "description": "PEP 735 [dependency-groups] put the group name in managerData.depGroup, which only matchJsonata can see. The legacy [tool.uv.dev-dependencies] table has no group name.",
-      "groupName": "`uv` <dev> dependencies (non-major)",
-      "groupSlug": "uv-dev-deps-nonmajor",
-      "matchDepTypes": [
-        "dependency-groups",
-        "tool.uv.dev-dependencies"
-      ],
-      "matchJsonata": [
-        "managerData.depGroup = 'dev' or depType = 'tool.uv.dev-dependencies'"
-      ],
-      "matchUpdateTypes": [
-        "patch",
-        "minor"
-      ],
-      "automerge": true
-    },
-    {
-      "groupName": "`uv` <docs> dependencies (non-major)",
-      "groupSlug": "uv-docs-deps-nonmajor",
-      "matchDepTypes": [
-        "dependency-groups"
-      ],
-      "matchJsonata": [
-        "managerData.depGroup = 'docs'"
-      ],
-      "matchUpdateTypes": [
-        "patch",
-        "minor"
-      ],
-      "automerge": true
-    },
-    {
       "groupName": "uv dependencies",
       "groupSlug": "uv-deps",
       "matchPackageNames": [

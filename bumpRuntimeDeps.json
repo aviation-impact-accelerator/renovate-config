@@ -1,0 +1,12 @@
+{
+  "packageRules": [
+    {
+      "description": "Raise the floor of runtime dependencies to the new version, not just the lockfile. For applications, where downstream users don't install the package",
+      "matchDepTypes": [
+        "project.dependencies",
+        "project.optional-dependencies"
+      ],
+      "rangeStrategy": "bump"
+    }
+  ]
+}
