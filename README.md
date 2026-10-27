@@ -10,6 +10,7 @@ This configuration includes:
 
 - The [dependency dashboard issue](https://docs.renovatebot.com/presets-default/#dependencydashboard) as a preset.
 - Update lockfiles when dependencies are updated.
+- [Lock file maintenance](#lock-file-maintenance) once a week.
 - [One PR per Python dependency](#python-dependencies), raising the floor of tooling dependencies and refreshing only the lockfile for runtime dependencies.
 - [Automerge](#automerge-and-review) patch and minor updates once CI checks pass and the release is at least 3 days old.
 - Request review from the `aia-software` team. For automerged updates, review is only requested if CI fails; other updates request review when the PR is opened.
@@ -46,6 +47,19 @@ How `pyproject.toml` changes depends on where the dependency is declared:
 Prefer bare floors (`>=x.y.z`) to caps: the [review rules](#automerge-and-review) already stop breaking updates from merging unnoticed. Build backends are the exception, because an sdist is built with whichever backend version exists when it is installed, so cap them (e.g. `uv_build>=0.11.6,<0.12` or `maturin>=1.15.0,<2`).
 
 Write a cap with only as many parts as the version component that breaks. Renovate keeps the cap's precision when it moves it, so `<0.12` becomes `<0.13`, but `<0.12.0` becomes a patch-level cap such as `<0.12.2`, and `<2.0` becomes a minor-level cap such as `<2.2`.
+
+### Lock file maintenance
+
+Renovate only changes a lock file such as `uv.lock` or `Cargo.lock` when it updates a dependency declared in the package file. Transitive dependencies, and direct dependencies with no version constraint, would otherwise never move. [Lock file maintenance](https://docs.renovatebot.com/configuration-options/#lockfilemaintenance) refreshes every lock file in one PR on the same schedule as other updates (Monday 0300-0400 London time), and automerges it once CI checks pass.
+
+Renovate can't apply the 3-day [minimum release age](#automerge-and-review) to lock file maintenance, because the package manager chooses the versions. To apply one, configure it in the package manager. For uv, set [`exclude-newer`](https://docs.astral.sh/uv/reference/settings/#exclude-newer) to the same duration in `pyproject.toml`:
+
+```toml
+[tool.uv]
+exclude-newer = "3 days"
+```
+
+Renovate waits an extra 30 minutes past its own minimum release age (`minimumReleaseAgeBuffer`), so the updates it proposes aren't rejected by uv's cutoff.
 
 ### prek support
 
