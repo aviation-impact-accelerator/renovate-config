@@ -11,6 +11,7 @@ This configuration includes:
 - The [dependency dashboard issue](https://docs.renovatebot.com/presets-default/#dependencydashboard) as a preset.
 - Update lockfiles when dependencies are updated.
 - [Lock file maintenance](#lock-file-maintenance) once a week.
+- [Python version updates](#python-versions) for `.python-version` and CI, but never `requires-python`.
 - [One PR per Python dependency](#python-dependencies), raising the floor of tooling dependencies and refreshing only the lockfile for runtime dependencies.
 - [Automerge](#automerge-and-review) patch and minor updates once CI checks pass and the release is at least 3 days old.
 - Request review from the `aia-software` team. For automerged updates, review is only requested if CI fails; other updates request review when the PR is opened.
@@ -47,6 +48,19 @@ How `pyproject.toml` changes depends on where the dependency is declared:
 Prefer bare floors (`>=x.y.z`) to caps: the [review rules](#automerge-and-review) already stop breaking updates from merging unnoticed. Build backends are the exception, because an sdist is built with whichever backend version exists when it is installed, so cap them (e.g. `uv_build>=0.11.6,<0.12` or `maturin>=1.15.0,<2`).
 
 Write a cap with only as many parts as the version component that breaks. Renovate keeps the cap's precision when it moves it, so `<0.12` becomes `<0.13`, but `<0.12.0` becomes a patch-level cap such as `<0.12.2`, and `<2.0` becomes a minor-level cap such as `<2.2`.
+
+### Python versions
+
+Renovate updates the Python version used for development and CI:
+
+- `.python-version`, using Renovate's built-in [pyenv manager](https://docs.renovatebot.com/modules/manager/pyenv/). Workflows that read it with `python-version-file: ".python-version"` follow automatically.
+- Single `python-version:` inputs in workflows and Copier workflow templates, such as `actions/setup-python` or `astral-sh/setup-uv` with `python-version: "3.14"`. Renovate has no built-in support for these, so the default config adds a regex manager.
+
+Both are updated in the same PR. A new Python minor version (e.g. `3.14` to `3.15`) needs [review](#automerge-and-review).
+
+Matrix lists such as `python-version: ["3.14", "3.15"]` are left alone, because they list the versions a project supports. `requires-python` is also never updated: it sets the oldest Python a project supports, which is a decision for people, not Renovate.
+
+When you change `requires-python`, check any tool settings that copy it. Ruff reads `requires-python` when `target-version` isn't set, so leave `target-version` out.
 
 ### Lock file maintenance
 
