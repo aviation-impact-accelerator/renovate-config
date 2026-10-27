@@ -10,6 +10,7 @@ This configuration includes:
 
 - The [dependency dashboard issue](https://docs.renovatebot.com/presets-default/#dependencydashboard) as a preset.
 - Update lockfiles when dependencies are updated.
+- [One PR per Python dependency](#python-dependencies), raising the floor of tooling dependencies and refreshing only the lockfile for runtime dependencies.
 - [Automerge](#automerge-and-review) patch and minor updates once CI checks pass and the release is at least 3 days old.
 - Request review from the `aia-software` team. For automerged updates, review is only requested if CI fails; other updates request review when the PR is opened.
 - [Default group presets](#default-group-presets).
@@ -28,6 +29,23 @@ Updates automerge once CI checks pass, except for these, which need review from 
 - Copier template updates.
 
 Renovate only suggests an update once the release is at least 3 days old (`minimumReleaseAge`), so a yanked or compromised release is less likely to be merged. It also gives projects that publish to more than one place time to finish (e.g. Ruff's PyPI release and `ruff-pre-commit` tag), so grouped updates arrive in one PR. Pending updates are listed on the dependency dashboard. Security fixes skip the wait. Updates from sources without release timestamps (git tags and refs, Docker registries other than Docker Hub, and the internal `camia-*` packages) are not held back.
+
+### Python dependencies
+
+Each Python dependency is updated in its own PR, whichever section of `pyproject.toml` it's in. The exceptions are tools defined in more than one place, which are kept in sync by [`groupRuff`](#group-ruff-updates) and [`groupUv`](#group-uv-updates).
+
+How `pyproject.toml` changes depends on where the dependency is declared:
+
+| Declared in | What changes |
+|---|---|
+| `[dependency-groups]` (any group) and the legacy `[tool.uv.dev-dependencies]` | The floor is raised to the new version (e.g. `pyrefly>=1.0.0` to `pyrefly>=1.0.1`) and `uv.lock` is refreshed. |
+| `[build-system] requires` | The floor is raised to the new version, and any cap moves with it. |
+| `pyproject.toml.jinja` Copier templates | The floor is raised to the new version. |
+| `[project.dependencies]` and `[project.optional-dependencies]` | Only `uv.lock` is refreshed. The floor is left alone so a library doesn't narrow what downstream users can install. If the new version is outside the range (e.g. above a cap), the range is replaced. To raise the floor as well, extend [`bumpRuntimeDeps`](#bump-runtime-dependencies). |
+
+Prefer bare floors (`>=x.y.z`) to caps: the [review rules](#automerge-and-review) already stop breaking updates from merging unnoticed. Build backends are the exception, because an sdist is built with whichever backend version exists when it is installed, so cap them (e.g. `uv_build>=0.11.6,<0.12` or `maturin>=1.15.0,<2`).
+
+Write a cap with only as many parts as the version component that breaks. Renovate keeps the cap's precision when it moves it, so `<0.12` becomes `<0.13`, but `<0.12.0` becomes a patch-level cap such as `<0.12.2`, and `<2.0` becomes a minor-level cap such as `<2.2`.
 
 ### prek support
 
@@ -75,9 +93,7 @@ Automatic git submodule updates can be grouped together. The git-submodules mana
 
 ### Group uv updates
 
-uv dependencies in the `dev` and `docs` [dependency groups](https://docs.astral.sh/uv/concepts/projects/dependencies/#dependency-groups) are grouped into one PR per group. Dependencies in the legacy `[tool.uv.dev-dependencies]` table are included in the `dev` group. This will only group patch and minor versions together so major package versions (with breaking changes) can be handled individually. Other dependency groups are not grouped.
-
-uv itself (for example the `uv-pre-commit` hook or a `uv` pin) is grouped into a single `uv dependencies` PR. Extend your config with:
+uv versions are defined in more than one place, such as the `uv-pre-commit` hook and `uv_build` in `[build-system] requires`. To keep them in sync, this preset groups uv updates into a single `uv dependencies` PR. Extend your config with:
 
 ```json
 {
@@ -103,7 +119,7 @@ pre-commit hooks can be grouped together. The pre-commit manager is disabled by 
 
 ### Group Ruff updates
 
-Ruff versions are defined in the `pyproject.toml` and in `.pre-commit-config.yaml` or `prek.toml`. To keep them in sync, renovate can group the ruff updates to a single PR. The preset also sets `rangeStrategy` to `bump`, so a lower bound such as `ruff>=0.15.12` is raised to the new version alongside the hook `rev`. Without it, Renovate leaves a range that the new version already satisfies untouched, so only the hook `rev` and `uv.lock` are updated. You can opt-in to this by extending the config:
+Ruff versions are defined in the `pyproject.toml` and in `.pre-commit-config.yaml` or `prek.toml`. To keep them in sync, renovate can group the ruff updates to a single PR. The preset also sets `rangeStrategy` to `bump`, so a lower bound such as `ruff>=0.15.12` is raised to the new version alongside the hook `rev`, wherever Ruff is declared and even without the default config. Without it, Renovate leaves a range that the new version already satisfies untouched, so only the hook `rev` and `uv.lock` are updated. You can opt-in to this by extending the config:
 
 ```json
 {
@@ -114,7 +130,7 @@ Ruff versions are defined in the `pyproject.toml` and in `.pre-commit-config.yam
 }
 ```
 
-Group rules are applied in sequence and if a package matches a later group, it is removed from the earlier group. `groupRuff` overlaps with ruff updates in `groupUv` and `groupPreCommit`, so to keep ruff updates grouped together, extend the config with `groupRuff` below `groupUv` and `groupPreCommit` in the `extends` list. For the same reason, `groupUv` should come below `groupPreCommit` so the `uv-pre-commit` hook is grouped with uv.
+Group rules are applied in sequence and if a package matches a later group, it is removed from the earlier group. `groupRuff` overlaps with the `ruff-pre-commit` hook in `groupPreCommit`, so to keep ruff updates grouped together, extend the config with `groupRuff` below `groupPreCommit` in the `extends` list. For the same reason, `groupUv` should come below `groupPreCommit` so the `uv-pre-commit` hook is grouped with uv.
 
 ### Group Terraform dependencies
 
@@ -143,6 +159,21 @@ Automerge is enabled by default in `default.json` (see [Automerge and review](#a
   "extends": [
     // ... other presets ...
     "local>aviation-impact-accelerator/renovate-config:disableAutomerge"
+  ]
+}
+```
+
+Make sure this is added after extending the default config to ensure this overrides the default.
+
+### Bump runtime dependencies
+
+By default, only `uv.lock` is refreshed for runtime dependencies (see [Python dependencies](#python-dependencies)). An application isn't installed by anyone downstream, so it can raise the floor of `[project.dependencies]` and `[project.optional-dependencies]` to each new version too. To do this, add this to the config:
+
+```json
+{
+  "extends": [
+    // ... other presets ...
+    "local>aviation-impact-accelerator/renovate-config:bumpRuntimeDeps"
   ]
 }
 ```
