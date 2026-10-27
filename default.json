@@ -66,6 +66,22 @@
       "datasourceTemplate": "docker",
       "versioningTemplate": "docker",
       "depTypeTemplate": "container-image"
+    },
+    {
+      "customType": "regex",
+      "description": "Update single python-version inputs (e.g. actions/setup-python, astral-sh/setup-uv) in workflows and Copier workflow templates. Matrix lists and expressions are skipped. Uses the same depName, datasource and versioning as the pyenv manager, so CI moves with .python-version",
+      "managerFilePatterns": [
+        "/(^|/)(workflow-templates|\\.(?:github|gitea|forgejo)/(?:workflows|actions))/.+\\.ya?ml(\\.jinja)?$/",
+        "/(^|/)action\\.ya?ml(\\.jinja)?$/",
+        "/(^|/)\\.github/workflows/\\{%-?\\s*if\\s+[^%]+\\s*-?%\\}[^/]+\\.ya?ml\\{%-?\\s*endif\\s*-?%\\}(?:\\.jinja)?$/"
+      ],
+      "matchStrings": [
+        "python-version:[ \\t]*[\"']?(?<currentValue>\\d+\\.\\d+(?:\\.\\d+)?)[\"']?\\s"
+      ],
+      "depNameTemplate": "python",
+      "datasourceTemplate": "docker",
+      "versioningTemplate": "docker",
+      "depTypeTemplate": "ci-python-version"
     }
   ],
   "packageRules": [
@@ -86,6 +102,13 @@
         "project.optional-dependencies"
       ],
       "rangeStrategy": "update-lockfile"
+    },
+    {
+      "description": "requires-python is the oldest Python a project supports, which is a decision for people, not Renovate",
+      "matchDepTypes": [
+        "requires-python"
+      ],
+      "enabled": false
     },
     {
       "description": "Only automerge non-major updates. Defined here so it applies after, and overrides, the presets in extends",
