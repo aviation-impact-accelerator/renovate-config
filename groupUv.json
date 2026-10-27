@@ -1,13 +1,15 @@
 {
   "packageRules": [
     {
+      "description": "uv itself, in every place its version appears. pep621 normalises uv_build to uv-build, but the Copier template regex manager doesn't. astral-sh/setup-uv is a separate project and is left to groupGitHubActions",
       "groupName": "uv dependencies",
       "groupSlug": "uv-deps",
       "matchPackageNames": [
-        "/.*uv.*/"
-      ],
-      "matchSourceUrls": [
-        "/https://github.com/astral-sh/.*/"
+        "astral-sh/uv",
+        "astral-sh/uv-pre-commit",
+        "uv",
+        "uv-build",
+        "uv_build"
       ],
       "automerge": true,
       "separateMajorMinor": false

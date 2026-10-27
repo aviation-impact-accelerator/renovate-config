@@ -93,7 +93,7 @@ Automatic git submodule updates can be grouped together. The git-submodules mana
 
 ### Group uv updates
 
-uv versions are defined in more than one place, such as the `uv-pre-commit` hook and `uv_build` in `[build-system] requires`. To keep them in sync, this preset groups uv updates into a single `uv dependencies` PR. Extend your config with:
+uv versions are defined in more than one place, such as the `uv-pre-commit` hook and `uv_build` in `[build-system] requires`. To keep them in sync, this preset groups uv updates into a single `uv dependencies` PR. The `astral-sh/setup-uv` GitHub Action isn't included. Its version numbers are its own, not uv's, so it's updated with the other [GitHub Actions](#group-github-actions-updates). Extend your config with:
 
 ```json
 {
