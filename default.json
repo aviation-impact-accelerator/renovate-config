@@ -131,8 +131,21 @@
         "pytest-camia"
       ],
       "minimumReleaseAgeBehaviour": "timestamp-optional"
+    },
+    {
+      "description": "Lock file maintenance has no single release to age, so it would be held forever. uv picks the versions itself",
+      "matchUpdateTypes": [
+        "lockFileMaintenance"
+      ],
+      "minimumReleaseAge": null
     }
   ],
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": [
+      "* 3 * * 1"
+    ]
+  },
   "automerge": true,
   "minimumReleaseAge": "3 days",
   "schedule": [

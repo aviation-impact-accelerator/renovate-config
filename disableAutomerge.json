@@ -5,6 +5,13 @@
         "*"
       ],
       "automerge": false
+    },
+    {
+      "description": "Lock file maintenance has no package name, so the rule above doesn't match it",
+      "matchUpdateTypes": [
+        "lockFileMaintenance"
+      ],
+      "automerge": false
     }
   ]
 }
