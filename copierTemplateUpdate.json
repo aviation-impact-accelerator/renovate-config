@@ -11,6 +11,7 @@
       ],
       "overrideDepName": "{{replace '.git' '' (replace 'https://github.com/aviation-impact-accelerator/' '' depName)}}",
       "skipArtifactsUpdate": true,
+      "automerge": false,
       "suppressNotifications": [
         "artifactErrors"
       ]

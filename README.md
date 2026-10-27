@@ -10,13 +10,24 @@ This configuration includes:
 
 - The [dependency dashboard issue](https://docs.renovatebot.com/presets-default/#dependencydashboard) as a preset.
 - Update lockfiles when dependencies are updated.
-- Automerge patch and minor updates once CI checks pass. Major updates are never automerged, including grouped PRs that contain a major update.
+- [Automerge](#automerge-and-review) patch and minor updates once CI checks pass and the release is at least 3 days old.
 - Request review from the `aia-software` team. For automerged updates, review is only requested if CI fails; other updates request review when the PR is opened.
 - [Default group presets](#default-group-presets).
 - Scheduled updates between 0300-0400 every Monday London time.
 - Enable copier template updates.
 - [prek support](#prek-support) for `prek.toml` files.
 - [Custom managers for Copier templates](#copier-template-managers).
+
+### Automerge and review
+
+Updates automerge once CI checks pass, except for these, which need review from the `aia-software` team:
+
+- Major updates, including grouped PRs that contain a major update.
+- Minor updates of `0.x` packages (e.g. Ruff `0.16` to `0.17`), because `0.x` packages can make breaking changes in a minor release. Patch updates of `0.x` packages still automerge.
+- New Python minor versions (e.g. `3.14` to `3.15` in `.python-version`). Python patch versions still automerge.
+- Copier template updates.
+
+Renovate only suggests an update once the release is at least 3 days old (`minimumReleaseAge`), so a yanked or compromised release is less likely to be merged. It also gives projects that publish to more than one place time to finish (e.g. Ruff's PyPI release and `ruff-pre-commit` tag), so grouped updates arrive in one PR. Pending updates are listed on the dependency dashboard. Security fixes skip the wait. Updates from sources without release timestamps (git tags and refs, Docker registries other than Docker Hub, and the internal `camia-*` packages) are not held back.
 
 ### prek support
 
@@ -125,7 +136,7 @@ order to better align with how each repository uses renovatebot.
 
 ### Disable automerge
 
-Automerge is enabled by default for certain dependency groups in `default.json`. To disable this feature for a repository, add this to the config:
+Automerge is enabled by default in `default.json` (see [Automerge and review](#automerge-and-review)). To disable this feature for a repository, add this to the config:
 
 ```json
 {

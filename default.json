@@ -75,8 +75,48 @@
         "major"
       ],
       "automerge": false
+    },
+    {
+      "description": "0.x packages can break in a minor release, so treat a 0.x minor update like a major. Hook revs can have a v prefix",
+      "matchUpdateTypes": [
+        "minor"
+      ],
+      "matchCurrentVersion": "/^v?0\\./",
+      "automerge": false
+    },
+    {
+      "description": "A new Python minor version (e.g. 3.14 to 3.15) needs review. Patch versions still automerge",
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchDepNames": [
+        "python"
+      ],
+      "matchUpdateTypes": [
+        "minor"
+      ],
+      "automerge": false
+    },
+    {
+      "description": "These datasources (and Docker registries other than Docker Hub) have no release timestamps, which would hold their updates forever under minimumReleaseAge",
+      "matchDatasources": [
+        "docker",
+        "git-refs",
+        "git-tags"
+      ],
+      "minimumReleaseAgeBehaviour": "timestamp-optional"
+    },
+    {
+      "description": "Internal packages come from the private GitLab registry, which may not provide release timestamps",
+      "matchPackageNames": [
+        "camia-*",
+        "pytest-camia"
+      ],
+      "minimumReleaseAgeBehaviour": "timestamp-optional"
     }
   ],
+  "automerge": true,
+  "minimumReleaseAge": "3 days",
   "schedule": [
     "* 3 * * 1"
   ],
