@@ -9,6 +9,7 @@
       "matchSourceUrls": [
         "/https://github.com/astral-sh/.*/"
       ],
+      "rangeStrategy": "bump",
       "automerge": true,
       "separateMajorMinor": false
     }
